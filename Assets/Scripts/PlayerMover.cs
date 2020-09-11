@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 
 public class PlayerMover : MonoBehaviour
@@ -7,6 +8,8 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     public bool Available { get; private set; } = true;
+
+    public event UnityAction ReachedNextCell;
 
     public void MoveLeft()
     {
@@ -33,6 +36,7 @@ public class PlayerMover : MonoBehaviour
             yield return null;
         }
         transform.position = target;
+        ReachedNextCell?.Invoke();
         Available = true;
     }
 
@@ -45,6 +49,7 @@ public class PlayerMover : MonoBehaviour
             yield return null;
         }
         transform.position = target;
+        ReachedNextCell?.Invoke();
         Available = true;
     }
 }
