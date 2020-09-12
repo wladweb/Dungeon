@@ -13,6 +13,15 @@ public class Player : MonoBehaviour
     {
         _animator.Play("Dead");
         IsAlive = false;
+    }
+
+    public void GetLive()
+    {
+        IsAlive = true;
+    }
+
+    public void OnDeadAnimationStop()
+    {
         Died?.Invoke();
     }
 }

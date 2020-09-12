@@ -6,7 +6,7 @@ public class Levels : MonoBehaviour
 
     private int _currentLevelIndex;
 
-    private bool HasLevel()
+    public bool HasLevel()
     {
         return (_currentLevelIndex) < _levels.Length;
     }
@@ -29,5 +29,10 @@ public class Levels : MonoBehaviour
             level = null;
             return false;
         }
+    }
+
+    public void ResetLevels()
+    {
+        _currentLevelIndex = 0;
     }
 }

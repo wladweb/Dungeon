@@ -19,6 +19,8 @@ public class Game : MonoBehaviour
     private Player _player;
 
     public event UnityAction GameFinished;
+    public event UnityAction LevelFinished;
+    public event UnityAction PlayerDied;
 
     private void Start()
     {
@@ -59,6 +61,18 @@ public class Game : MonoBehaviour
 
     private void OnReachEndLevel()
     {
+        LevelFinished?.Invoke();
+    }
+
+    public void StartNewGame()
+    {
+        _levels.ResetLevels();
+        _player.GetLive();
+        StartNextLevel();
+    }
+
+    public void StartNextLevel()
+    {
         ChangeLevel();
         _generator.StartNewLevel();
     }
@@ -80,11 +94,17 @@ public class Game : MonoBehaviour
 
     private void OnPlayerDied()
     {
-        Debug.Log("dead");    
+        Debug.Log("dead");
+        PlayerDied?.Invoke();    
     }
 
     public int GetLevelLength()
     {
         return _currentLevel.Length;
+    }
+
+    public bool HasNextLevel()
+    {
+       return _levels.HasLevel();
     }
 }

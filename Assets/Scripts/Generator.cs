@@ -8,8 +8,6 @@ public class Generator : MonoBehaviour
     [SerializeField] private PlayerMover _player;
     [SerializeField] private GridObject[] _templates;
     [SerializeField] private int _range;
-    [SerializeField] private Camera _camera;
-    [SerializeField] private float _verticalOffset;
     [SerializeField] private Transform _container;
     [SerializeField] private GridObject _chest;
 
@@ -46,7 +44,17 @@ public class Generator : MonoBehaviour
         _endLevelPosition = GridToWorldPosition(_endLevelGridosition);
 
         PlaceSingleObject(_chest, _endLevelGridosition);
+        ProtectSpawnCell();
         FillRange(_player.transform.position, _range);
+    }
+
+    private void ProtectSpawnCell()
+    {
+        int onGround = (int) GridLayer.OnGround;
+        int inAir = (int) GridLayer.InAir;
+
+        _engagedCells.Add(new Vector3Int(0, onGround, 0));
+        _engagedCells.Add(new Vector3Int(0, inAir, 0));
     }
 
     private void OnReachNextCell()
