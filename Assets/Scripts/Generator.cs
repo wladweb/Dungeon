@@ -61,6 +61,8 @@ public class Generator : MonoBehaviour
         position.y = (int) gridObject.Layer;
         Instantiate(gridObject, GridToWorldPosition(position), Quaternion.identity, _container.transform);
         _engagedCells.Add(position);
+        position.y = (int)GridLayer.InAir;
+        _engagedCells.Add(position);
     }
 
     private void CheckEndLevel()
