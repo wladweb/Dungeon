@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
     private void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
-        ChangeLevel();
+        //ChangeLevel();
     }
 
     private void OnEnable()
@@ -94,7 +94,6 @@ public class Game : MonoBehaviour
 
     private void OnPlayerDied()
     {
-        Debug.Log("dead");
         PlayerDied?.Invoke();    
     }
 

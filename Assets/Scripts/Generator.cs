@@ -22,7 +22,7 @@ public class Generator : MonoBehaviour
     private void Start()
     {
         _game = GetComponent<Game>();
-        StartNewLevel();
+        //StartNewLevel();
     }
 
     private void OnEnable()
