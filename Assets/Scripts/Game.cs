@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
 
     private PlayerInput _playerInput;
     private Level _currentLevel;
+    private Player _player;
 
     public event UnityAction GameFinished;
 
@@ -28,16 +29,21 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         _generator.ReachedEndLevel += OnReachEndLevel;
+        _player = _mover.GetComponent<Player>();
+        _player.Died += OnPlayerDied;
     }
 
     private void OnDisable()
     {
         _generator.ReachedEndLevel -= OnReachEndLevel;
+        _player.Died -= OnPlayerDied;
     }
 
     private void Update()
     {
-        if (_playerInput.PlayerAction(out Direction direction) && _mover.Available)
+        if (_playerInput.PlayerAction(out Direction direction)
+            && _mover.Available 
+            && _player.IsAlive)
         {
             switch (direction)
             {
@@ -70,6 +76,11 @@ public class Game : MonoBehaviour
             Time.timeScale = 0;
             GameFinished?.Invoke();
         }
+    }
+
+    private void OnPlayerDied()
+    {
+        Debug.Log("dead");    
     }
 
     public int GetLevelLength()
