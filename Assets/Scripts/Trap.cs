@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Peaks : MonoBehaviour
+public class Trap : MonoBehaviour
 {
     [SerializeField] private float _timer;
-    [SerializeField] private Transform _peaks;
     [SerializeField] private Animator _animator;
 
     private float _timeSpread = 1f;
@@ -26,12 +24,12 @@ public class Peaks : MonoBehaviour
 
     private void MoveUp()
     {
-        _animator.Play("peaksUp");
+        _animator.Play("Active");
     }
 
     public void Deactivate()
     {
-        _animator.Play("peaksDown");
+        _animator.Play("Inactive");
         _isActive = false;
     }
 
