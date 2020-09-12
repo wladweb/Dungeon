@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.63
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657797, g: 0.4964136, b: 0.5748179, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -172,7 +172,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f3de2cd5dd4ca6147a80e5c025ab4456, type: 2}
+  - {fileID: 2100000, guid: 6ab57e4a27c0c1647ae3958789449e88, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -683,6 +683,7 @@ GameObject:
   - component: {fileID: 1808890883}
   - component: {fileID: 1808890882}
   - component: {fileID: 1808890885}
+  - component: {fileID: 1808890886}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -741,15 +742,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c35a1740c02194f8b12aad7bad44f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1657210347}
+  _player: {fileID: 1657210348}
   _templates:
   - {fileID: 22709670358067080, guid: 1d8276ccc5355c343833156e4678f257, type: 3}
   - {fileID: 633011733407536040, guid: 296788be75784f347bf504ca03173391, type: 3}
   - {fileID: 4761389843219481579, guid: a87b28c78312d354db90e03b1e0c7486, type: 3}
-  _range: 5
-  _camera: {fileID: 0}
+  _range: 10
+  _camera: {fileID: 963194227}
   _verticalOffset: 1
   _container: {fileID: 677896227}
+--- !u!114 &1808890886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808890881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2466f5db36873c949961c2a48c80d99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levels:
+  - {fileID: 11400000, guid: c67c9f41add00aa4ab858fcca209f10f, type: 2}
+  - {fileID: 11400000, guid: 80255c1fc42db0840a095bed54197283, type: 2}
 --- !u!1 &2052075802
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,18 +1,38 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+using TMPro;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private PlayerMover _mover;
+    [SerializeField] private Generator _generator;
+    [SerializeField] private Levels _levels;
+    [SerializeField] private MeshRenderer _background;
+    [SerializeField] private TMP_Text _levelName;
 
     public const string APP_NAME = "Dungeon";
     public const string APP_VERSION = "0.1.0";
     public const float CELL_SIZE = 2;
 
     private PlayerInput _playerInput;
+    private Level _currentLevel;
+
+    public event UnityAction GameFinished;
 
     private void Start()
     {
         _playerInput = GetComponent<PlayerInput>();
+        ChangeLevel();
+    }
+
+    private void OnEnable()
+    {
+        _generator.ReachedEndLevel += OnReachEndLevel;
+    }
+
+    private void OnDisable()
+    {
+        _generator.ReachedEndLevel -= OnReachEndLevel;
     }
 
     private void Update()
@@ -29,5 +49,31 @@ public class Game : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void OnReachEndLevel()
+    {
+        ChangeLevel();
+        _generator.StartNewLevel();
+    }
+
+    private void ChangeLevel()
+    {
+        if (_levels.TryGetLevel(out Level level))
+        {
+            _currentLevel = level;
+            _background.material = _currentLevel.Background;
+            _levelName.text = _currentLevel.Name;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            GameFinished?.Invoke();
+        }
+    }
+
+    public int GetLevelLength()
+    {
+        return _currentLevel.Length;
     }
 }

@@ -13,6 +13,9 @@ public class PlayerMover : MonoBehaviour
 
     public void MoveLeft()
     {
+        if (transform.position.z == 0)
+            return;
+
         Available = false;
         Vector3 target = new Vector3(transform.position.x, transform.position.y, transform.position.z - Game.CELL_SIZE);
         transform.LookAt(target);

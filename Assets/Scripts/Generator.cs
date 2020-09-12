@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Generator : MonoBehaviour
 {
@@ -10,13 +11,24 @@ public class Generator : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private float _verticalOffset;
     [SerializeField] private Transform _container;
+    [SerializeField] private GridObject _chest;
 
     private HashSet<Vector3Int> _engagedCells = new HashSet<Vector3Int>();
     private Vector3Int _areaCenter;
+    private Vector3 _startLevelPosition = new Vector3(0, 1, 0);
+    private Vector3 _endLevelPosition;
+    private Game _game;
+
+    public event UnityAction ReachedEndLevel;
+
+    private void Start()
+    {
+        _game = GetComponent<Game>();
+        StartNewLevel();
+    }
 
     private void OnEnable()
     {
-        FillRange(_player.transform.position, _range);
         _player.ReachedNextCell += OnReachNextCell;
     }
 
@@ -25,10 +37,38 @@ public class Generator : MonoBehaviour
         _player.ReachedNextCell -= OnReachNextCell;
     }
 
+    public void StartNewLevel()
+    {
+        ResetGenerator();
+        _player.transform.position = _startLevelPosition;
+
+        Vector3Int _endLevelGridosition = new Vector3Int(0, 0, _game.GetLevelLength());
+        _endLevelPosition = GridToWorldPosition(_endLevelGridosition);
+
+        PlaceSingleObject(_chest, _endLevelGridosition);
+        FillRange(_player.transform.position, _range);
+    }
+
     private void OnReachNextCell()
     {
         FillRange(_player.transform.position, _range);
         ControlGridObjectsVisibility();
+        CheckEndLevel();
+    }
+
+    private void PlaceSingleObject(GridObject gridObject, Vector3Int position)
+    {
+        position.y = (int) gridObject.Layer;
+        Instantiate(gridObject, GridToWorldPosition(position), Quaternion.identity, _container.transform);
+        _engagedCells.Add(position);
+    }
+
+    private void CheckEndLevel()
+    {
+        if (_player.transform.position.z == _endLevelPosition.z)
+        {
+            ReachedEndLevel?.Invoke();
+        }
     }
 
     private void FillRange(Vector3 center, float _range)
@@ -119,5 +159,16 @@ public class Generator : MonoBehaviour
             (int)(worldPosition.x / Game.CELL_SIZE),
             (int)(worldPosition.y / Game.CELL_SIZE),
             (int)(worldPosition.z / Game.CELL_SIZE));
+    }
+
+    private void ResetGenerator()
+    {
+        _engagedCells.Clear();
+
+        for (int i = 0, l = _container.childCount; i < l; i++)
+        {
+            Transform child = _container.GetChild(i);
+            Destroy(child.gameObject);
+        }
     }
 }
