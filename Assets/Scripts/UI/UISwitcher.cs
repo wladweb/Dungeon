@@ -9,6 +9,8 @@ public class UISwitcher : MonoBehaviour
     [SerializeField] private GameObject _losePanel;
     [SerializeField] private Button _nextLevelButton;
     [SerializeField] private Button _newGameButton;
+    [SerializeField] private Button _menuButton;
+    [SerializeField] private GameObject _menu;
 
     private void OnEnable()
     {
@@ -16,6 +18,7 @@ public class UISwitcher : MonoBehaviour
         _game.PlayerDied += OnPlayerDead;
         _nextLevelButton.onClick.AddListener(OnNextLevelButtonClick);
         _newGameButton.onClick.AddListener(OnNewGameButtonClick);
+        _menuButton.onClick.AddListener(OnMenuButtonClick);
     }
 
     private void OnDisable()
@@ -24,11 +27,17 @@ public class UISwitcher : MonoBehaviour
         _game.PlayerDied -= OnPlayerDead;
         _nextLevelButton.onClick.RemoveListener(OnNextLevelButtonClick);
         _newGameButton.onClick.RemoveListener(OnNewGameButtonClick);
+        _menuButton.onClick.RemoveListener(OnMenuButtonClick);
     }
 
     private void OnPlayerDead()
     {
         _losePanel.SetActive(true);
+    }
+
+    private void OnMenuButtonClick()
+    {
+        _menu.SetActive(true);
     }
 
     private void OnNextLevelButtonClick()

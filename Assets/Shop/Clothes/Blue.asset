@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5417b03ee3b4f7845b5b7c2e774d35e1, type: 3}
-  m_Name: SecondLevel
+  m_Script: {fileID: 11500000, guid: a640c7ff456745243938f8172b537751, type: 3}
+  m_Name: Blue
   m_EditorClassIdentifier: 
-  _name: Second Level
-  _background: {fileID: 2100000, guid: 6ab57e4a27c0c1647ae3958789449e88, type: 2}
-  _length: 15
+  _icon: {fileID: 21300000, guid: e363dc7510a9951499d62009d9c9985e, type: 3}
+  _material: {fileID: 2100000, guid: 969537f4139710249a1882403f62c405, type: 2}

@@ -7,6 +7,7 @@ public class Menu : MonoBehaviour
     [SerializeField] private Button _shop;
     [SerializeField] private Button _exit;
     [SerializeField] private Game _game;
+    [SerializeField] private GameObject _shopPanel;
 
     private void OnEnable()
     {
@@ -29,7 +30,7 @@ public class Menu : MonoBehaviour
 
     private void OnShopButtonClick()
     {
-        gameObject.SetActive(false);
+        _shopPanel.SetActive(true);
     }
 
     private void OnPlayButtonClick()
